@@ -10,15 +10,17 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+  
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
+    @livewireStyles
     @stack('css')
 </head>
 <body>
@@ -90,7 +92,9 @@
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('login') }}">Login</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('register') }}">Register</a></li>
                     @else
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Tasks</a></li>
+        
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="javascript:void(0);" >{{auth()->user()->name}}</a></li>    
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{route('tasks')}}"> Tasks</a></li>
                         <li class="nav-item mx-0 mx-lg-1">
                             <a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ route('logout') }}"  
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout
@@ -99,7 +103,6 @@
                                             @csrf
                             </form>
                         </li>
-                        
                     @endguest
                     </ul>
                 </div>
@@ -109,5 +112,21 @@
             @yield('content')
         </main>
     </div>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+    <script src="{{asset('js/app.js')}}"></script>
+    {{-- <script src="{{asset('js/scripts.js')}}"></script> --}}
+
+@livewireScripts
+<script>
+    $( document ).ready(function() {
+        livewire.on('DeleteModal', data => {
+            $('.modal-backdrop').remove();
+        });
+    });
+    </script>
+
 </body>
 </html>
