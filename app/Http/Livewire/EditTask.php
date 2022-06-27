@@ -42,7 +42,7 @@ class EditTask extends Component
         $this->old_users_assigned=$this->task->users;  
         
     }
-
+    
     public function updatedStartDate()
     {
             $this->validate(
